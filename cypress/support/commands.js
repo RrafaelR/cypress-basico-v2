@@ -1,6 +1,6 @@
-Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function(){ // pode receber parametros
-    cy.get('#firstName').type("Rafael") //# na frente significa que e um id
-        cy.get('#lastName').type("Chagas")
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', (firstName, lastName) => { // pode receber parametros
+    cy.get('#firstName').type(firstName) //# na frente significa que e um id
+        cy.get('#lastName').type(lastName)
         cy.get('#email').type("rafaelchagas@email.com")
         cy.get('#phone').type("999999999")
         cy.get('#phone-checkbox').click()

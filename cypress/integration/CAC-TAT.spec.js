@@ -53,7 +53,23 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('.error').should('be.visible')
     })
     it('envia o formuário com sucesso usando um comando customizado',function(){
-        cy.fillMandatoryFieldsAndSubmit() // pode passar parametros
+        cy.fillMandatoryFieldsAndSubmit("Rafael", "Chagas") // pode passar parametros
         cy.get('.success').should('be.visible')
+    })
+    it('seleciona um produto (YouTube) por seu texto', function(){
+        cy.get('select').select('YouTube').should('have.value', 'youtube')
+        cy.get('select').select(1).should('have.value', 'blog')
+    })
+    it.only('marca o tipo de atendimento como feedback', ()=>{
+        //cy.get('input[type="radio"][value="feedback"]').check()
+        //cy.get('input[type="radio"]').should('be.checked')
+        cy.get('input[type="radio"]')
+            .should('have.length',3)
+            .each(function($radio){
+                cy.wrap($radio).check()
+                cy.wrap($radio).should('be.checked')
+                cy.wait(2000)
+            })
+        cy.get('input[type="radio"]').should('be.checked')
     })
   })
