@@ -34,7 +34,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#firstName').type("Rafael") //# na frente significa que e um id
         cy.get('#lastName').type("Chagas")
         cy.get('#email').type("rafaelchagas@email.com")
-        cy.get('#phone-checkbox').click()
+        cy.get('#phone-checkbox').check()
         cy.get('#open-text-area').type("Minha televisao quebrou")
         cy.contains('.button','Enviar').click()
         cy.get('.error').should('be.visible')
@@ -60,7 +60,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('select').select('YouTube').should('have.value', 'youtube')
         cy.get('select').select(1).should('have.value', 'blog')
     })
-    it.only('marca o tipo de atendimento como feedback', ()=>{
+    it('marca o tipo de atendimento como feedback', ()=>{
         //cy.get('input[type="radio"][value="feedback"]').check()
         //cy.get('input[type="radio"]').should('be.checked')
         cy.get('input[type="radio"]')
@@ -71,5 +71,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
                 cy.wait(2000)
             })
         cy.get('input[type="radio"]').should('be.checked')
+    })
+    it('marca ambos checkboxes, depois desmarca o último', ()=>{
+        cy.get('input[type="checkbox"]').check().last().uncheck().should('not.be.checked')
+    })
+    it.only('seleciona um arquivo da pasta fixtures e verifica se o mesmo foi selecionado', ()=>{
+        cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json')
+        .then(input=>{
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
     })
   })
